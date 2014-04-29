@@ -11,6 +11,7 @@ bool Start(int a_argc, char* a_argv[]) {
 
 	return true;
 }
+
 bool Run() {
 	RakNet::Packet *pPacket = pPacket = m_pInterface->Receive();	
 	if (pPacket != nullptr)
@@ -29,13 +30,15 @@ bool Run() {
 
 			//	Output
 			RakNet::BitStream outputStream;
-			outputStream.Write((unsigned char)HEADER_MESSAGE_RESPONSE);
+			outputStream.Write((unsigned char)HEADER_MESSAGE);
+			outputStream.Write(inputString.C_String());
 			m_pInterface->Send(&outputStream, HIGH_PRIORITY, RELIABLE_ORDERED, 0, pPacket->systemAddress, true);
 		}
 	}
 
 	return true;
 }
+
 void Quit() {
 
 }
